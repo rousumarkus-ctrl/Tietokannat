@@ -1,0 +1,126 @@
+a)
+mysql> SELECT * FROM employees ORDER BY last_name LIMIT 10;
++--------+------------+------------+-----------+--------+------------+
+| emp_no | birth_date | first_name | last_name | gender | hire_date  |
++--------+------------+------------+-----------+--------+------------+
+|  11761 | 1964-07-17 | Bartek     | Aamodt    | M      | 1991-06-12 |
+|  15427 | 1959-03-06 | Aluzio     | Aamodt    | M      | 1985-03-03 |
+|  18182 | 1963-02-23 | Dekang     | Aamodt    | F      | 1988-05-25 |
+|  16572 | 1956-11-26 | Matt       | Aamodt    | M      | 1987-06-16 |
+|  12791 | 1960-06-16 | Mokhtar    | Aamodt    | M      | 1994-08-14 |
+|  12516 | 1958-06-25 | Sreenivas  | Aamodt    | F      | 1990-03-06 |
+|  12982 | 1952-12-08 | Sachem     | Aamodt    | F      | 1992-01-11 |
+|  17400 | 1962-03-22 | Basim      | Aamodt    | F      | 1991-09-15 |
+|  19898 | 1957-03-09 | Vidar      | Aamodt    | M      | 1988-08-06 |
+|  17885 | 1954-02-01 | Takanari   | Aamodt    | M      | 1996-08-19 |
++--------+------------+------------+-----------+--------+------------+
+10 rows in set (0.16 sec)
+
+b)
+mysql> SELECT * FROM employees ORDER BY last_name,first_name LIMIT 10;
++--------+------------+------------+-----------+--------+------------+
+| emp_no | birth_date | first_name | last_name | gender | hire_date  |
++--------+------------+------------+-----------+--------+------------+
+| 258641 | 1961-05-23 | Abdelkader | Aamodt    | M      | 1994-12-02 |
+| 258005 | 1953-02-17 | Adhemar    | Aamodt    | F      | 1991-01-21 |
+| 455773 | 1960-05-04 | Aemilian   | Aamodt    | M      | 1988-04-21 |
+| 436560 | 1959-03-16 | Alagu      | Aamodt    | F      | 1991-10-17 |
+| 266651 | 1959-05-28 | Aleksander | Aamodt    | F      | 1989-03-29 |
+| 487598 | 1962-03-03 | Alexius    | Aamodt    | M      | 1994-12-30 |
+| 216963 | 1960-07-16 | Alois      | Aamodt    | M      | 1995-08-24 |
+|  15427 | 1959-03-06 | Aluzio     | Aamodt    | M      | 1985-03-03 |
+| 100860 | 1964-06-20 | Amabile    | Aamodt    | F      | 1993-02-06 |
+| 107070 | 1954-04-24 | Anestis    | Aamodt    | M      | 1990-10-30 |
++--------+------------+------------+-----------+--------+------------+
+10 rows in set (0.17 sec)
+
+c)
+mysql> SELECT * FROM employees ORDER BY hire_date DESC LIMIT 5;
++--------+------------+------------+-----------+--------+------------+
+| emp_no | birth_date | first_name | last_name | gender | hire_date  |
++--------+------------+------------+-----------+--------+------------+
+| 463807 | 1964-06-12 | Bikash     | Covnot    | M      | 2000-01-28 |
+| 428377 | 1957-05-09 | Yucai      | Gerlach   | M      | 2000-01-23 |
+| 499553 | 1954-05-06 | Hideyuki   | Delgrande | F      | 2000-01-22 |
+| 222965 | 1959-08-07 | Volkmar    | Perko     | F      | 2000-01-13 |
+|  47291 | 1960-09-09 | Ulf        | Flexer    | M      | 2000-01-12 |
++--------+------------+------------+-----------+--------+------------+
+5 rows in set (0.14 sec)
+
+d)
+mysql> SELECT first_name,last_name,salary FROM employees JOIN salaries ON employees.emp_no=salaries.emp_no WHERE to_date='9999-01-01' ORDER BY salary DESC LIMIT 1;
++------------+-----------+--------+
+| first_name | last_name | salary |
++------------+-----------+--------+
+| Tokuyasu   | Pesch     | 158220 |
++------------+-----------+--------+
+1 row in set (1.55 sec)
+
+e)
+mysql> SELECT first_name,last_name,salary FROM employees JOIN salaries ON employees.emp_no=salaries.emp_no WHERE to_date='9999-01-01' ORDER BY salary ASC LIMIT 1;
++------------+-----------+--------+
+| first_name | last_name | salary |
++------------+-----------+--------+
+| Olivera    | Baek      |  38623 |
++------------+-----------+--------+
+1 row in set (1.10 sec)
+
+f)
+mysql> SELECT first_name,last_name,salary FROM employees JOIN salaries ON employees.emp_no=salaries.emp_no WHERE salary>150000 AND to_date='9999-01-01';
++------------+-----------+--------+
+| first_name | last_name | salary |
++------------+-----------+--------+
+| Tokuyasu   | Pesch     | 158220 |
+| Ibibia     | Junet     | 150345 |
+| Xiahua     | Whitcomb  | 155709 |
+| Lansing    | Kambil    | 150052 |
+| Willard    | Baca      | 154459 |
+| Tsutomu    | Alameldin | 155190 |
+| Charmane   | Griswold  | 153715 |
+| Weicheng   | Hatcliff  | 152687 |
+| Mitsuyuki  | Stanfel   | 152220 |
+| Sanjai     | Luders    | 155513 |
+| Honesty    | Mukaidono | 156286 |
+| Weijing    | Chenoweth | 152710 |
+| Shin       | Birdsall  | 152412 |
+| Mohammed   | Moehrke   | 150740 |
+| Lidong     | Meriste   | 154376 |
++------------+-----------+--------+
+15 rows in set (1.02 sec)
+
+g)
+mysql> SELECT dept_name,COUNT(*) FROM departments JOIN dept_emp ON departments.dept_no=dept_emp.dept_no JOIN employees ON employees.emp_no=dept_emp.emp_no WHERE (dept_name='Marketing' OR dept_name='Sales') AND to_date='9999-01-01' GROUP BY dept_name;
++-----------+----------+
+| dept_name | COUNT(*) |
++-----------+----------+
+| Marketing |    14842 |
+| Sales     |    37701 |
++-----------+----------+
+2 rows in set (1.55 sec)
+
+h)
+mysql> SELECT first_name,last_name,dept_name FROM dept_manager JOIN departments ON dept_manager.dept_no=departments.dept_no JOIN employees ON dept_manager.emp_no=employees.emp_no WHERE to_date='9999-01-01';
++------------+------------+--------------------+
+| first_name | last_name  | dept_name          |
++------------+------------+--------------------+
+| Vishwani   | Minakawa   | Marketing          |
+| Isamu      | Legleitner | Finance            |
+| Karsten    | Sigstam    | Human Resources    |
+| Oscar      | Ghazalie   | Production         |
+| Leon       | DasSarma   | Development        |
+| Dung       | Pesch      | Quality Management |
+| Hauke      | Zhang      | Sales              |
+| Hilary     | Kambil     | Research           |
+| Yuchang    | Weedman    | Customer Service   |
++------------+------------+--------------------+
+9 rows in set (0.00 sec)
+
+i)
+mysql> SELECT dept_name,AVG(salary) FROM departments JOIN dept_emp ON departments.dept_no=dept_emp.dept_no JOIN employees ON employees.emp_no=dept_emp.emp_no JOIN salaries ON employees.emp_no=salaries.emp_no WHERE (dept_name='Marketing' OR dept_name='Sales') AND salaries.to_date='9999-01-01' AND dept_emp.to_date='9999-01-01' GROUP BY dept_name;
++-----------+-------------+
+| dept_name | AVG(salary) |
++-----------+-------------+
+| Marketing |  80058.8488 |
+| Sales     |  88852.9695 |
++-----------+-------------+
+2 rows in set (3.15 sec)

@@ -1,0 +1,262 @@
+a)
+mysql> SELECT dept_name FROM departments;
++--------------------+
+| dept_name          |
++--------------------+
+| Customer Service   |
+| Development        |
+| Finance            |
+| Human Resources    |
+| Marketing          |
+| Production         |
+| Quality Management |
+| Research           |
+| Sales              |
++--------------------+
+9 rows in set (0.02 sec)
+
+b)
+mysql> SELECT DISTINCT title from titles;
++--------------------+
+| title              |
++--------------------+
+| Senior Engineer    |
+| Staff              |
+| Engineer           |
+| Senior Staff       |
+| Assistant Engineer |
+| Technique Leader   |
+| Manager            |
++--------------------+
+7 rows in set (0.25 sec)
+
+c)
+mysql> SELECT MIN(salary),MAX(salary) FROM salaries WHERE to_date='9999-01-01';
++-------------+-------------+
+| MIN(salary) | MAX(salary) |
++-------------+-------------+
+|       38623 |      158220 |
++-------------+-------------+
+1 row in set (0.98 sec)
+
+d)
+mysql> SELECT AVG(salary) FROM salaries WHERE to_date='9999-01-01';
++-------------+
+| AVG(salary) |
++-------------+
+|  72012.2359 |
++-------------+
+1 row in set (1.00 sec)
+
+e)
+mysql> SELECT * FROM employees WHERE last_name='Facello';
++--------+------------+-------------+-----------+--------+------------+
+| emp_no | birth_date | first_name  | last_name | gender | hire_date  |
++--------+------------+-------------+-----------+--------+------------+
+|  10001 | 1953-09-02 | Georgi      | Facello   | M      | 1986-06-26 |
+|  10327 | 1954-04-01 | Roded       | Facello   | M      | 1987-09-18 |
+|  12751 | 1964-07-06 | Nahum       | Facello   | M      | 1995-01-09 |
+|  15346 | 1959-09-26 | Kirk        | Facello   | F      | 1991-12-07 |
+|  15685 | 1958-07-12 | Kasturi     | Facello   | M      | 1992-03-13 |
+|  18686 | 1962-02-23 | Kwangyoen   | Facello   | F      | 1985-05-02 |
+|  19041 | 1957-05-29 | Billur      | Facello   | F      | 1992-08-03 |
+|  21947 | 1954-06-18 | Taisook     | Facello   | F      | 1991-07-30 |
+|  23938 | 1955-07-11 | Nahum       | Facello   | M      | 1985-09-15 |
+|  24774 | 1956-09-23 | Uno         | Facello   | F      | 1989-11-09 |
+|  24806 | 1959-09-30 | Charmane    | Facello   | F      | 1989-03-17 |
+|  25955 | 1962-10-09 | Christoph   | Facello   | M      | 1989-03-24 |
+|  27732 | 1955-06-04 | Girolamo    | Facello   | M      | 1986-06-30 |
+|  30320 | 1953-12-21 | Kristine    | Facello   | F      | 1990-06-10 |
+|  31107 | 1962-10-13 | Fai         | Facello   | M      | 1994-07-11 |
+|  32138 | 1955-04-13 | Anyuan      | Facello   | F      | 1988-10-04 |
+|  32580 | 1953-04-25 | Kirk        | Facello   | M      | 1988-05-31 |
+|  36371 | 1961-05-29 | Cristinel   | Facello   | M      | 1986-10-14 |
+|  37261 | 1957-11-06 | Zijian      | Facello   | F      | 1986-06-30 |
+|  41667 | 1953-12-23 | Barna       | Facello   | F      | 1985-09-13 |
+|  44502 | 1962-09-16 | Fumitaka    | Facello   | M      | 1985-08-25 |
+|  44934 | 1957-02-20 | Rimli       | Facello   | M      | 1991-08-09 |
+|  48319 | 1962-09-22 | Genta       | Facello   | F      | 1989-12-02 |
+|  48913 | 1959-07-11 | Danny       | Facello   | F      | 1996-02-06 |
+|  49069 | 1955-05-02 | Kasturi     | Facello   | M      | 1995-03-31 |
+|  50931 | 1953-10-21 | Panayotis   | Facello   | F      | 1989-11-07 |
+|  51025 | 1957-06-09 | Weiwu       | Facello   | M      | 1992-10-04 |
+|  51983 | 1963-04-30 | Arra        | Facello   | F      | 1991-12-12 |
+|  52277 | 1956-04-07 | Rance       | Facello   | M      | 1988-04-19 |
+|  52727 | 1955-06-21 | Steve       | Facello   | M      | 1988-05-13 |
+|  53807 | 1960-12-03 | Mountaz     | Facello   | M      | 1988-05-11 |
+|  55649 | 1956-01-23 | Georgi      | Facello   | M      | 1988-05-04 |
+|  57432 | 1956-05-10 | Stafford    | Facello   | M      | 1989-09-08 |
+|  63380 | 1961-07-02 | Huan        | Facello   | M      | 1990-03-28 |
+|  65853 | 1964-06-21 | Nahid       | Facello   | M      | 1996-11-30 |
+|  69509 | 1960-03-23 | Kannan      | Facello   | F      | 1998-05-29 |
+|  71639 | 1956-03-27 | Eckart      | Facello   | M      | 1998-06-10 |
+|  72427 | 1956-03-15 | Atreyi      | Facello   | F      | 1986-09-30 |
+|  73057 | 1959-08-03 | Shichao     | Facello   | F      | 1987-02-01 |
+|  79847 | 1959-08-24 | Roded       | Facello   | M      | 1989-04-06 |
+|  79931 | 1957-08-21 | Xiahua      | Facello   | M      | 1993-08-07 |
+|  80243 | 1962-08-18 | Remzi       | Facello   | M      | 1986-10-12 |
+|  80505 | 1958-05-27 | Mads        | Facello   | M      | 1997-04-24 |
+|  83039 | 1954-06-21 | Yonghong    | Facello   | F      | 1988-01-30 |
+|  84001 | 1955-06-02 | Badri       | Facello   | F      | 1985-06-14 |
+|  88231 | 1962-10-25 | Kannan      | Facello   | M      | 1988-07-19 |
+|  88963 | 1961-10-08 | Stafford    | Facello   | F      | 1992-08-23 |
+|  89220 | 1962-08-08 | Ramzi       | Facello   | M      | 1988-07-19 |
+|  89271 | 1956-04-24 | Vidya       | Facello   | M      | 1985-02-10 |
+|  89589 | 1961-07-15 | Fuqing      | Facello   | M      | 1987-08-28 |
+|  89910 | 1959-12-30 | Sajjan      | Facello   | M      | 1993-10-30 |
+|  91919 | 1964-02-07 | Suebskul    | Facello   | M      | 1993-10-22 |
+|  91962 | 1964-05-22 | Stein       | Facello   | M      | 1987-10-12 |
+|  94747 | 1957-09-07 | Clyde       | Facello   | M      | 1989-04-22 |
+|  97318 | 1961-12-26 | Rosalie     | Facello   | M      | 1999-03-07 |
+| 100752 | 1960-03-09 | Samphel     | Facello   | F      | 1989-02-14 |
+| 101495 | 1961-03-17 | Juichirou   | Facello   | M      | 1999-04-23 |
+| 102479 | 1952-07-07 | Serap       | Facello   | F      | 1986-06-29 |
+| 106915 | 1957-05-29 | Masaki      | Facello   | F      | 1985-08-24 |
+| 107809 | 1955-05-14 | Mihalis     | Facello   | M      | 1985-02-03 |
+| 200136 | 1954-09-27 | Tristan     | Facello   | F      | 1989-12-30 |
+| 200250 | 1955-09-12 | Arvin       | Facello   | F      | 1989-02-14 |
+| 200566 | 1963-05-06 | Mari        | Facello   | M      | 1986-12-03 |
+| 201657 | 1952-03-15 | Jamaludin   | Facello   | M      | 1991-05-29 |
+| 202512 | 1957-06-08 | Rance       | Facello   | F      | 1990-07-14 |
+| 204816 | 1953-12-26 | Arif        | Facello   | M      | 1991-06-24 |
+| 206036 | 1963-06-03 | Arno        | Facello   | F      | 1987-04-12 |
+| 207355 | 1954-10-15 | Diederik    | Facello   | M      | 1990-06-08 |
+| 208005 | 1961-01-30 | Dulce       | Facello   | M      | 1985-08-22 |
+| 210012 | 1962-02-20 | Fusako      | Facello   | M      | 1989-09-26 |
+| 211977 | 1961-02-23 | Baruch      | Facello   | M      | 1985-03-26 |
+| 215869 | 1959-11-11 | Moto        | Facello   | F      | 1991-09-15 |
+| 216580 | 1954-02-02 | Susuma      | Facello   | F      | 1987-01-02 |
+| 216768 | 1962-01-06 | Aamod       | Facello   | F      | 1999-04-24 |
+| 218123 | 1956-10-09 | Gino        | Facello   | F      | 1989-03-19 |
+| 218848 | 1959-12-09 | Vishv       | Facello   | M      | 1987-02-13 |
+| 219590 | 1954-12-20 | Nahid       | Facello   | F      | 1986-12-13 |
+| 221035 | 1953-07-21 | Troy        | Facello   | M      | 1985-11-27 |
+| 222990 | 1955-12-06 | Utpal       | Facello   | M      | 1993-03-12 |
+| 223761 | 1964-12-17 | Jouko       | Facello   | M      | 1992-10-28 |
+| 227132 | 1961-04-11 | Qingxiang   | Facello   | F      | 1993-08-16 |
+| 227664 | 1963-10-11 | Ottavia     | Facello   | M      | 1988-12-16 |
+| 230533 | 1963-05-12 | Kamakshi    | Facello   | M      | 1992-08-26 |
+| 234115 | 1958-01-24 | Gill        | Facello   | M      | 1990-05-22 |
+| 234296 | 1964-05-11 | Steen       | Facello   | F      | 1986-08-21 |
+| 237121 | 1956-01-09 | Constantijn | Facello   | M      | 1985-05-07 |
+| 239070 | 1956-04-18 | Zsolt       | Facello   | F      | 1986-03-21 |
+| 241050 | 1957-07-25 | Mizuhito    | Facello   | F      | 1992-01-05 |
+| 242934 | 1953-07-29 | Gurbir      | Facello   | M      | 1985-03-13 |
+| 246131 | 1963-06-15 | Ebru        | Facello   | F      | 1993-07-28 |
+| 252669 | 1955-02-22 | Hinrich     | Facello   | M      | 1989-03-19 |
+| 254096 | 1960-03-03 | Tonia       | Facello   | M      | 1985-04-03 |
+| 255382 | 1952-11-28 | Zito        | Facello   | M      | 1993-10-24 |
+| 255423 | 1960-03-19 | Leah        | Facello   | F      | 1995-06-27 |
+| 255802 | 1959-12-18 | Jaewon      | Facello   | M      | 1991-02-03 |
+| 256087 | 1959-04-05 | Bedrich     | Facello   | M      | 1989-05-04 |
+| 257028 | 1962-02-17 | Constantine | Facello   | F      | 1988-10-08 |
+| 257115 | 1959-11-05 | Emdad       | Facello   | M      | 1990-06-07 |
+| 257162 | 1962-04-27 | Basil       | Facello   | M      | 1995-03-14 |
+| 266232 | 1964-03-31 | Horward     | Facello   | M      | 1990-03-11 |
+| 269765 | 1956-10-30 | Chanjung    | Facello   | M      | 1992-01-20 |
+| 273484 | 1959-05-13 | Yagil       | Facello   | F      | 1995-11-06 |
+| 275609 | 1957-02-28 | Kyoichi     | Facello   | M      | 1995-01-02 |
+| 275990 | 1952-10-28 | Yakichi     | Facello   | M      | 1989-06-24 |
+| 276833 | 1957-07-15 | Lunjin      | Facello   | M      | 1991-03-30 |
+| 277386 | 1963-01-27 | Kish        | Facello   | F      | 1992-08-22 |
+| 277755 | 1955-05-21 | Shahar      | Facello   | M      | 1992-03-21 |
+| 279151 | 1963-04-30 | Mohd        | Facello   | M      | 1992-02-08 |
+| 279352 | 1953-07-14 | Sanjit      | Facello   | M      | 1986-11-22 |
+| 279985 | 1957-09-12 | Bikash      | Facello   | M      | 1997-07-10 |
+| 280447 | 1952-04-24 | Fumiko      | Facello   | M      | 1989-02-10 |
+| 281660 | 1964-08-06 | Mansur      | Facello   | F      | 1992-11-30 |
+| 281990 | 1960-12-14 | Xiaoshan    | Facello   | M      | 1989-02-22 |
+| 285312 | 1963-02-14 | Nathan      | Facello   | M      | 1988-08-28 |
+| 286096 | 1952-07-16 | Kazuyasu    | Facello   | M      | 1995-04-13 |
+| 287855 | 1956-07-07 | Weiru       | Facello   | M      | 1988-08-29 |
+| 289338 | 1956-07-18 | Jackson     | Facello   | M      | 1986-09-01 |
+| 290163 | 1956-12-13 | Huiqun      | Facello   | M      | 1995-02-04 |
+| 290571 | 1962-05-09 | Gladys      | Facello   | M      | 1988-04-17 |
+| 292825 | 1952-05-20 | Tru         | Facello   | F      | 1985-02-22 |
+| 294696 | 1961-04-28 | Sahrah      | Facello   | M      | 1987-05-12 |
+| 297576 | 1963-06-22 | Alain       | Facello   | M      | 1986-12-19 |
+| 297591 | 1960-07-26 | Arumugam    | Facello   | M      | 1996-10-10 |
+| 401980 | 1957-10-17 | Sudharsan   | Facello   | F      | 1992-09-15 |
+| 403038 | 1952-09-17 | Mitsuyuki   | Facello   | M      | 1985-08-16 |
+| 404503 | 1953-09-16 | Xiong       | Facello   | M      | 1987-12-27 |
+| 407189 | 1957-05-01 | Ult         | Facello   | F      | 1986-04-14 |
+| 412547 | 1955-05-21 | Ulises      | Facello   | M      | 1986-05-14 |
+| 413116 | 1963-03-30 | Weidon      | Facello   | F      | 1991-11-20 |
+| 413584 | 1961-02-26 | Inderjeet   | Facello   | M      | 1987-06-03 |
+| 414084 | 1957-08-26 | Khalil      | Facello   | M      | 1992-06-12 |
+| 416780 | 1957-10-21 | Eckart      | Facello   | F      | 1988-11-13 |
+| 418129 | 1960-04-13 | Arfst       | Facello   | F      | 1985-06-03 |
+| 420349 | 1961-10-04 | Reinhard    | Facello   | M      | 1986-09-23 |
+| 420884 | 1957-06-22 | Mani        | Facello   | F      | 1994-11-21 |
+| 421882 | 1964-01-12 | Mamdouh     | Facello   | M      | 1997-07-17 |
+| 423322 | 1959-03-14 | Seongbae    | Facello   | M      | 1990-05-10 |
+| 423903 | 1956-07-07 | Conal       | Facello   | M      | 1988-01-22 |
+| 425112 | 1961-04-14 | Xiaoqiu     | Facello   | M      | 1985-06-19 |
+| 425965 | 1957-08-01 | Val         | Facello   | M      | 1991-06-20 |
+| 427281 | 1959-01-16 | Tokuyasu    | Facello   | M      | 1988-01-24 |
+| 428653 | 1952-09-02 | Barton      | Facello   | F      | 1992-02-05 |
+| 430343 | 1963-04-10 | Danco       | Facello   | F      | 1993-10-22 |
+| 434843 | 1960-03-26 | Shigeo      | Facello   | M      | 1990-01-21 |
+| 435421 | 1958-11-26 | Shushma     | Facello   | M      | 1988-02-25 |
+| 439070 | 1959-01-04 | Subhash     | Facello   | F      | 1985-06-13 |
+| 442432 | 1963-06-30 | Jingling    | Facello   | M      | 1988-06-02 |
+| 443359 | 1955-03-05 | Jackson     | Facello   | F      | 1995-09-04 |
+| 445724 | 1961-06-20 | Zissis      | Facello   | F      | 1994-07-04 |
+| 447565 | 1954-01-25 | Qunsheng    | Facello   | F      | 1987-11-17 |
+| 449566 | 1958-02-06 | LiMin       | Facello   | M      | 1989-04-25 |
+| 450603 | 1962-08-06 | Elrique     | Facello   | M      | 1988-12-09 |
+| 451667 | 1961-02-26 | Kamakshi    | Facello   | F      | 1985-11-20 |
+| 451765 | 1960-11-21 | Sajjan      | Facello   | F      | 1993-04-02 |
+| 454227 | 1959-09-12 | Mooi        | Facello   | M      | 1989-05-29 |
+| 456365 | 1962-10-03 | Shao        | Facello   | M      | 1985-10-19 |
+| 457593 | 1963-08-29 | Marjo       | Facello   | F      | 1995-08-05 |
+| 457882 | 1958-06-02 | Hatem       | Facello   | M      | 1985-03-11 |
+| 459497 | 1953-12-16 | Phillip     | Facello   | M      | 1985-06-10 |
+| 461755 | 1962-12-24 | Alselm      | Facello   | M      | 1986-04-21 |
+| 462193 | 1955-02-22 | Baocai      | Facello   | M      | 1985-11-04 |
+| 462209 | 1960-03-09 | Marko       | Facello   | M      | 1992-02-24 |
+| 463064 | 1963-04-18 | Wilmer      | Facello   | F      | 1995-03-25 |
+| 465096 | 1955-07-23 | Denny       | Facello   | M      | 1985-02-16 |
+| 465901 | 1953-01-18 | Magdalena   | Facello   | M      | 1988-08-12 |
+| 466175 | 1958-05-19 | Zejun       | Facello   | F      | 1986-02-17 |
+| 466540 | 1957-06-09 | Tetsushi    | Facello   | F      | 1991-07-18 |
+| 467230 | 1957-01-31 | Goo         | Facello   | F      | 1990-08-30 |
+| 467993 | 1964-03-10 | Ramya       | Facello   | M      | 1986-02-23 |
+| 469507 | 1960-06-09 | Badri       | Facello   | F      | 1993-07-02 |
+| 471246 | 1958-07-30 | Maya        | Facello   | M      | 1985-05-15 |
+| 473885 | 1955-07-03 | Janalee     | Facello   | M      | 1987-01-23 |
+| 475627 | 1958-07-28 | Zhonghua    | Facello   | F      | 1996-08-29 |
+| 476363 | 1964-01-05 | Muzhong     | Facello   | M      | 1989-11-12 |
+| 477033 | 1961-07-19 | Sanjiv      | Facello   | F      | 1985-06-22 |
+| 477983 | 1953-05-01 | Masali      | Facello   | M      | 1991-07-26 |
+| 480705 | 1961-10-21 | Marke       | Facello   | F      | 1988-10-20 |
+| 481003 | 1959-04-07 | Val         | Facello   | M      | 1986-12-29 |
+| 483648 | 1962-08-20 | Rimon       | Facello   | M      | 1996-05-27 |
+| 483934 | 1957-06-28 | Rosalyn     | Facello   | M      | 1991-05-20 |
+| 485964 | 1964-09-14 | Souichi     | Facello   | M      | 1994-03-11 |
+| 486102 | 1956-09-08 | Arfst       | Facello   | F      | 1996-07-29 |
+| 486829 | 1953-10-11 | Mary        | Facello   | M      | 1998-02-13 |
+| 487188 | 1959-02-20 | Richara     | Facello   | M      | 1985-08-31 |
+| 488569 | 1955-11-15 | Satoru      | Facello   | M      | 1993-03-20 |
+| 493549 | 1960-04-17 | Achilleas   | Facello   | F      | 1991-11-27 |
++--------+------------+-------------+-----------+--------+------------+
+186 rows in set (0.14 sec)
+
+f)
+mysql> SELECT COUNT(*) FROM employees WHERE birth_date>='1950-01-01' AND birth_date<'1960-01-01';
++----------+
+| COUNT(*) |
++----------+
+|   182886 |
++----------+
+1 row in set (0.07 sec)
+
+g)
+mysql> SELECT gender,COUNT(*) FROM employees GROUP BY gender;
++--------+----------+
+| gender | COUNT(*) |
++--------+----------+
+| M      |   179973 |
+| F      |   120051 |
++--------+----------+
+2 rows in set (0.20 sec)
