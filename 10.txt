@@ -1,0 +1,53 @@
+a)
+mysql> SELECT DISTINCT etunimi,sukunimi FROM arviointi JOIN opiskelija ON opiskelija.idOpiskelija=arviointi.idOpiskelija JOIN opintojakso ON opintojakso.idOpintojakso=arviointi.idOpintojakso WHERE arvosana=0;
++---------+----------+
+| etunimi | sukunimi |
++---------+----------+
+| Aku     | Ankka    |
++---------+----------+
+1 row in set (0.00 sec)
+
+b)
+mysql> SELECT DISTINCT etunimi,sukunimi FROM arviointi JOIN opiskelija ON opiskelija.idOpiskelija=arviointi.idOpiskelija JOIN opintojakso ON opintojakso.idOpintojakso=arviointi.idOpintojakso WHERE arvosana>0 AND nimi='Fysiikka 3';
++---------+----------+
+| etunimi | sukunimi |
++---------+----------+
+| Aku     | Ankka    |
+| Roope   | Ankka    |
+| Iines   | Ankka    |
+| Mikki   | Hiiri    |
+| Hessu   | Hopo     |
++---------+----------+
+5 rows in set (0.00 sec)
+
+c)
+mysql> SELECT DISTINCT nimi FROM arviointi JOIN opiskelija ON opiskelija.idOpiskelija=arviointi.idOpiskelija JOIN opintojakso ON opintojakso.idOpintojakso=arviointi.idOpintojakso WHERE etunimi='Hessu';
++-------------+
+| nimi        |
++-------------+
+| Fysiikka 3  |
+| Tietokannat |
++-------------+
+2 rows in set (0.00 sec)
+
+d)
+mysql> SELECT AVG(arvosana) FROM arviointi JOIN opiskelija ON opiskelija.idOpiskelija=arviointi.idOpiskelija JOIN opintojakso ON opintojakso.idOpintojakso=arviointi.idOpintojakso WHERE etunimi='Aku';
++---------------+
+| AVG(arvosana) |
++---------------+
+|        0.6667 |
++---------------+
+1 row in set (0.00 sec)
+
+e)
+mysql> SELECT nimi FROM arviointi RIGHT JOIN opintojakso ON opintojakso.idOpintojakso=arviointi.idOpintojakso WHERE idArviointi IS NULL;
++--------------------------+
+| nimi                     |
++--------------------------+
+| Liike-elaman tapatietous |
+| Elektroniikan perusteet  |
+| Kellarihumppa            |
+| Matematiikka 2           |
+| VHDL-kieli               |
++--------------------------+
+5 rows in set (0.00 sec)
