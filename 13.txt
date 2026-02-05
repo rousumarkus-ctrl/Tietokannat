@@ -1,0 +1,71 @@
+c)
+CREATE PROCEDURE `late` ()
+BEGIN
+	SELECT idKirja,aEtunimi,aSukunimi FROM lainaus l JOIN asiakas a ON l.idAsiakas=a.idAsiakas WHERE palautus<curdate() AND palautettu IS NULL;
+END
+
+d)
+CREATE PROCEDURE `LisaaSuoritus` (
+IN En VARCHAR(45),
+IN Sn VARCHAR(45),
+IN KK VARCHAR(45),
+IN Arvos INT
+)
+
+-- Aliohjelman kutsu mysql:n komentoriviltä:
+-- CALL LisaaSuoritus('Iines','Ankka','T200123',3);
+
+ Aliohjelma:BEGIN -- Aliohjelma on LOOP-label,LEAVE:lla poistutaan
+
+declare OpiskID INT DEFAULT 0;
+declare OpjaksoID INT DEFAULT 0;
+
+-- Määrittele itse lisää tarpeen mukaan...
+-- Jos löytyi, opiskelijan päävain tallettuu muuttujaan OpiskID > 0
+SELECT idOpiskelija INTO OpiskID FROM Opiskelija WHERE Etunimi=En AND Sukunimi=Sn;
+
+-- Jos OpiskID jäi nollaksi, opiskelijaa ei löytynyt. Voidaan lopettaa suoritus.
+IF OpiskID=0 then 
+     SELECT 'Opiskelijaa ei ole'; -- TUlostetaan viesti käyttäjälle
+     LEAVE Aliohjelma;
+END IF;
+
+-- Samanlainen juttu tehtävä opintojaksolle
+SELECT idOpintojakso INTO OpjaksoID FROM Opintojakso WHERE Koodi=Kk;
+
+IF OpjaksoID=0 then 
+     SELECT 'Opintojaksoa ei ole'; -- TUlostetaan viesti käyttäjälle
+     LEAVE Aliohjelma;
+END IF;
+
+-- Tarkista, että muuttuja Arvos on välillä 0 - 5
+IF Arvos > 5 || Arvos < 0 then
+	SELECT 'Arvosanan pitää olla 0-5';
+    LEAVE Aliohjelma;
+END IF;
+
+-- Lopuksi, jos opiskelija ja opintojakso on olemassa ja arvosana on järkevä
+--  INSERT-lause, jolla syötät tiedot Arviointi-tauluun
+
+INSERT INTO Arviointi VALUES(NULL,CURDATE(),Arvos,OpiskID,OpjaksoID);
+
+END
+
+e)
+CREATE PROCEDURE `Poista` (
+IN En VARCHAR(45),
+IN Sn VARCHAR(45),
+IN KK VARCHAR(45)
+)
+Aliohjelma:BEGIN
+declare ArviointiID INT DEFAULT 0;
+
+SELECT idArviointi INTO ArviointiID FROM Arviointi a JOIN opintojakso j ON j.idOpintojakso=a.idOpintojakso JOIN opiskelija o ON o.idOpiskelija=a.idOpiskelija WHERE Etunimi=En AND Sukunimi=Sn AND Koodi=KK;
+
+IF ArviointiID=0 then 
+     SELECT 'Suoritusta ei ole';
+     LEAVE Aliohjelma;
+END IF;
+DELETE FROM Arviointi WHERE idArviointi=ArviointiID;
+
+END

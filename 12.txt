@@ -1,0 +1,111 @@
+mysql> INSERT INTO asiakas VALUES (NULL,'Testaaja','Tester','123','Katu 2');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO tekija VALUES (NULL,'Tekija1','Test1','2000-01-01');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO tekija VALUES (NULL,'Tekija2','Test2','2000-01-01');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO teos VALUES (NULL,'Teos1','2020-01-01');            
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO teos VALUES (NULL,'Teos2','2020-01-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO teos VALUES (NULL,'Teos3','2020-01-01');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO kirja VALUES (NULL,'1F',1);  
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO kirja VALUES (NULL,'1F',2);  
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO kirja VALUES (NULL,'1F',1);  
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tekija_teos VALUES (1,1);        
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tekija_teos VALUES (2,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tekija_teos VALUES (3,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO tekija_teos VALUES (3,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO lainaus VALUES (NULL,DEFAULT,NULL,1,1,DEFAULT);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO lainaus VALUES (NULL,DEFAULT,NULL,1,1,DEFAULT);
+ERROR 1062 (23000): Duplicate entry '1' for key 'lainaus.PalautusID_UNIQUE'
+mysql> INSERT INTO lainaus VALUES (NULL,DEFAULT,NULL,2,1,DEFAULT);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> UPDATE lainaus SET palautettu='2026-02-05';
+Query OK, 2 rows affected (0.02 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> INSERT INTO lainaus VALUES (NULL,DEFAULT,NULL,1,1,DEFAULT);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * from tekija;
++----------+---------+----------+------------+
+| idTekija | Etunimi | Sukunimi | Syntyma    |
++----------+---------+----------+------------+
+|        1 | Tekija1 | Test1    | 2000-01-01 |
+|        2 | Tekija2 | Test2    | 2000-01-01 |
++----------+---------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM teos;                   
++--------+-------+------------+
+| idTeos | Nimi  | Luonti     |
++--------+-------+------------+
+|      1 | Teos1 | 2020-01-01 |
+|      2 | Teos2 | 2020-01-01 |
+|      3 | Teos3 | 2020-01-01 |
++--------+-------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM tekija_teos;
++--------+----------+
+| idTeos | idTekija |
++--------+----------+
+|      1 |        1 |
+|      3 |        1 |
+|      2 |        2 |
+|      3 |        2 |
++--------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM kirja;      
++---------+-------+--------+
+| idKirja | Hylly | idTeos |
++---------+-------+--------+
+|       1 | 1F    |      1 |
+|       2 | 1F    |      2 |
+|       3 | 1F    |      1 |
++---------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM lainaus;
++-----------+------------+------------+---------+-----------+------------+
+| idLainaus | Palautus   | Palautettu | idKirja | idAsiakas | PalautusID |
++-----------+------------+------------+---------+-----------+------------+
+|         1 | 2026-03-07 | 2026-02-05 |       1 |         1 |       NULL |
+|         3 | 2026-03-07 | 2026-02-05 |       2 |         1 |       NULL |
+|         4 | 2026-03-07 | NULL       |       1 |         1 |          1 |
++-----------+------------+------------+---------+-----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM asiakas;
++-----------+----------+-----------+---------+--------+
+| idAsiakas | aEtunimi | aSukunimi | Puhelin | Osoite |
++-----------+----------+-----------+---------+--------+
+|         1 | Testaaja | Tester    | 123     | Katu 2 |
++-----------+----------+-----------+---------+--------+
+1 row in set (0.00 sec)
