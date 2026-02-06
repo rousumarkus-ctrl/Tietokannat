@@ -1,0 +1,96 @@
+const book = {
+  bookArray: [
+    {
+      isbn: '082305649x',
+      name: 'Everything You Ever Wanted to Know',
+      author: 'Upton',
+      id_book: 1,
+    },
+    { isbn: '205711499', name: 'Photography', author: 'Vilppu', id_book: 2 },
+    {
+      isbn: '1892053039',
+      name: 'Drawing Manual Vilppu',
+      author: 'Zelanshi',
+      id_book: 3,
+    },
+    { isbn: '0534613932', name: 'TBA', author: 'Zelanshi', id_book: 4 },
+    {
+      isbn: '0534613934',
+      name: 'Shaping Space',
+      author: 'Speight',
+      id_book: 5,
+    },
+    {
+      isbn: '0131839780',
+      name: 'Art Since 1940',
+      author: 'Speight',
+      id_book: 6,
+    },
+    {
+      isbn: '0076417011',
+      name: 'Make it in Clay',
+      author: 'Stokstad',
+      id_book: 7,
+    },
+    {
+      isbn: '205795617',
+      name: 'Art History Vol II & ala carte lab',
+      author: 'Stokstad',
+      id_book: 8,
+    },
+    {
+      isbn: '1111287856',
+      name: 'Accounting Concepts',
+      author: 'Albrecht',
+      id_book: 9,
+    },
+    {
+      isbn: '0538479736',
+      name: 'Intermediate Accounting ',
+      author: 'Stice',
+      id_book: 10,
+    },
+    {
+      isbn: '9780073376813',
+      name: 'Management Info Systems',
+      author: 'Marakas',
+      id_book: 11,
+    },
+    {
+      isbn: '9780757524028',
+      name: 'Management',
+      author: 'Williams',
+      id_book: 12,
+    },
+    {
+      isbn: '9781609940041',
+      name: 'Leadership Wisdom of Jesus',
+      author: 'Manz',
+      id_book: 13,
+    },
+    {
+      isbn: '9780324786156',
+      name: 'Business Law Today',
+      author: 'Miller',
+      id_book: 14,
+    },
+    {
+      isbn: '9780073376813',
+      name: 'Management Info Systems',
+      author: 'Marakas',
+      id_book: 15,
+    },
+  ],
+  getAllBooks() {
+    return this.bookArray;
+  },
+  getOneBook(x) {
+    return this.bookArray[x - 1];
+  },
+  addBook(id_book, name, author, isbn) {
+    this.bookArray.push({ id_book, name, author, isbn });
+  },
+};
+console.log(book.getOneBook(1));
+book.addBook(16, 'Test', 'Tester', '1');
+console.log(book.getAllBooks());

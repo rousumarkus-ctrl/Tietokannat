@@ -1,0 +1,14 @@
+a)
+console.log(Math.max(process.argv[2], process.argv[3]));
+
+PS C:\Programming\Tietokannat\example> node max.js 1 4
+4
+
+b)
+const word = process.argv[2].toLowerCase();
+console.log(word == word.split('').toReversed().join(''));
+
+PS C:\Programming\Tietokannat\example> node palindrome.js saippuakauppias
+true
+PS C:\Programming\Tietokannat\example> node palindrome.js hello
+false
