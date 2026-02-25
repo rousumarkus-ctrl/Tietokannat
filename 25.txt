@@ -1,3 +1,248 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema hospital
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema hospital
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `hospital` DEFAULT CHARACTER SET utf8 ;
+USE `hospital` ;
+
+-- -----------------------------------------------------
+-- Table `hospital`.`patient`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`patient` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`patient` (
+  `idPatient` INT NOT NULL AUTO_INCREMENT,
+  `fname` VARCHAR(45) NOT NULL,
+  `lname` VARCHAR(45) NOT NULL,
+  `dob` DATE NOT NULL,
+  `gender` ENUM('male', 'female', 'other') NOT NULL,
+  `address` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  PRIMARY KEY (`idPatient`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`staff`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`staff` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`staff` (
+  `idStaff` INT NOT NULL AUTO_INCREMENT,
+  `fname` VARCHAR(45) NOT NULL,
+  `lname` VARCHAR(45) NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
+  `specialty` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `address` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  PRIMARY KEY (`idStaff`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`department`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`department` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`department` (
+  `idDepartment` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `location` VARCHAR(45) NOT NULL,
+  `idResponsible` INT NOT NULL,
+  PRIMARY KEY (`idDepartment`),
+  INDEX `fk_department_staff1_idx` (`idResponsible` ASC) VISIBLE,
+  CONSTRAINT `fk_department_staff1`
+    FOREIGN KEY (`idResponsible`)
+    REFERENCES `hospital`.`staff` (`idStaff`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`stay`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`stay` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`stay` (
+  `idStay` INT NOT NULL AUTO_INCREMENT,
+  `admit` DATE NOT NULL,
+  `discharge` DATE NULL,
+  `idPatient` INT NOT NULL,
+  `idStaff` INT NOT NULL,
+  PRIMARY KEY (`idStay`),
+  INDEX `fk_stay_patient1_idx` (`idPatient` ASC) VISIBLE,
+  INDEX `fk_stay_staff1_idx` (`idStaff` ASC) VISIBLE,
+  CONSTRAINT `fk_stay_patient1`
+    FOREIGN KEY (`idPatient`)
+    REFERENCES `hospital`.`patient` (`idPatient`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_stay_staff1`
+    FOREIGN KEY (`idStaff`)
+    REFERENCES `hospital`.`staff` (`idStaff`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`treatmentType`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`treatmentType` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`treatmentType` (
+  `idTreatmentType` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `code` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idTreatmentType`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`treatment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`treatment` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`treatment` (
+  `idTreatment` INT NOT NULL AUTO_INCREMENT,
+  `performed` DATE NOT NULL,
+  `idStay` INT NOT NULL,
+  `idStaff` INT NOT NULL,
+  `idTreatmentType` INT NOT NULL,
+  PRIMARY KEY (`idTreatment`),
+  INDEX `fk_treatment_stay1_idx` (`idStay` ASC) VISIBLE,
+  INDEX `fk_treatment_staff1_idx` (`idStaff` ASC) VISIBLE,
+  INDEX `fk_treatment_treatmentType1_idx` (`idTreatmentType` ASC) VISIBLE,
+  CONSTRAINT `fk_treatment_stay1`
+    FOREIGN KEY (`idStay`)
+    REFERENCES `hospital`.`stay` (`idStay`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_treatment_staff1`
+    FOREIGN KEY (`idStaff`)
+    REFERENCES `hospital`.`staff` (`idStaff`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_treatment_treatmentType1`
+    FOREIGN KEY (`idTreatmentType`)
+    REFERENCES `hospital`.`treatmentType` (`idTreatmentType`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`medication`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`medication` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`medication` (
+  `idMedication` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `dosage` VARCHAR(45) NOT NULL,
+  `instructions` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idMedication`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`appointment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`appointment` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`appointment` (
+  `idAppointment` INT NOT NULL AUTO_INCREMENT,
+  `time` DATETIME NOT NULL,
+  `idStaff` INT NOT NULL,
+  `idPatient` INT NOT NULL,
+  PRIMARY KEY (`idAppointment`),
+  INDEX `fk_appointment_staff_idx` (`idStaff` ASC) VISIBLE,
+  INDEX `fk_appointment_patient1_idx` (`idPatient` ASC) VISIBLE,
+  CONSTRAINT `fk_appointment_staff`
+    FOREIGN KEY (`idStaff`)
+    REFERENCES `hospital`.`staff` (`idStaff`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_appointment_patient1`
+    FOREIGN KEY (`idPatient`)
+    REFERENCES `hospital`.`patient` (`idPatient`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `hospital`.`prescription`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `hospital`.`prescription` ;
+
+CREATE TABLE IF NOT EXISTS `hospital`.`prescription` (
+  `idPatient` INT NOT NULL,
+  `idMedication` INT NOT NULL,
+  `start` DATE NOT NULL,
+  `end` DATE NULL,
+  PRIMARY KEY (`idPatient`, `idMedication`),
+  INDEX `fk_medication1_medication1_idx` (`idMedication` ASC) VISIBLE,
+  INDEX `fk_medication1_patient1_idx` (`idPatient` ASC) VISIBLE,
+  CONSTRAINT `fk_medication1_patient1`
+    FOREIGN KEY (`idPatient`)
+    REFERENCES `hospital`.`patient` (`idPatient`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_medication1_medication1`
+    FOREIGN KEY (`idMedication`)
+    REFERENCES `hospital`.`medication` (`idMedication`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+USE `hospital`;
+
+DELIMITER $$
+
+USE `hospital`$$
+DROP TRIGGER IF EXISTS `hospital`.`stay_BEFORE_INSERT` $$
+USE `hospital`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `hospital`.`stay_BEFORE_INSERT` BEFORE INSERT ON `stay` FOR EACH ROW
+BEGIN
+	IF NEW.discharge < New.admit THEN
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Discharge must be after admit';
+	END IF;
+END$$
+
+
+USE `hospital`$$
+DROP TRIGGER IF EXISTS `hospital`.`prescription_BEFORE_INSERT` $$
+USE `hospital`$$
+CREATE TRIGGER `hospital`.`prescription_BEFORE_INSERT` BEFORE INSERT ON `prescription` FOR EACH ROW
+BEGIN
+	IF NEW.end < New.start THEN
+		SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'End must be after start';
+	END IF;
+END$$
+
+
+DELIMITER ;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
 mysql> INSERT INTO patient VALUES (NULL,'test1','test1','1920-01-01','male','123A','0345');
 Query OK, 1 row affected (0.01 sec)
 
