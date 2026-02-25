@@ -1,0 +1,156 @@
+mysql> INSERT INTO patient VALUES (NULL,'test1','test1','1920-01-01','male','123A','0345');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO patient VALUES (NULL,'test2','test2','1920-01-01','female','124A','0346');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO patient VALUES (NULL,'test3','test3','1920-01-01','other','125A','0347');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO staff VALUES (NULL,'test4','test4','doctor','urologist','0346','125A','test@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO staff VALUES (NULL,'test5','test5','nurse',NULL,'0347','126A','test2@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO medication VALUES (NULL,'testMed1','100mg','ingest');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO medication VALUES (NULL,'testMed2','200mg','ingest');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO prescription VALUES (1,1,'1920-01-01','1921-01-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO prescription VALUES (2,1,'1920-01-01',NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO stay VALUES (NULL,'1920-01-01','1921-01-01',1,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO stay VALUES (NULL,'1930-01-01',NULL,1,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO treatmentType VALUES (NULL,'injection','S20.7');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO treatmentType VALUES (NULL,'vaccination','S40.2');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO treatment VALUES (NULL,'1930-01-01',1,1,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO treatment VALUES (NULL,'1930-01-01',1,2,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO appointment VALUES (NULL,'1930-01-01-09-00-00',1,1);
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO appointment VALUES (NULL,'1930-01-01-10-00-00',1,2);
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> INSERT INTO department VALUES (NULL,'Surgery','12F',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO department VALUES (NULL,'Brain surgery','13F',1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO department VALUES (NULL,'Nursing','10F',2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> INSERT INTO patient VALUES (NULL,'test1','test1','a','male','123A','0345');
+ERROR 1292 (22007): Incorrect date value: 'a' for column 'dob' at row 1
+mysql> INSERT INTO patient VALUES (NULL,'test2','test2','1920-01-01','fe','124A','0345');
+ERROR 1265 (01000): Data truncated for column 'gender' at row 1
+mysql> INSERT INTO prescription VALUES (1,2,'1920-01-01','1919-01-01');
+ERROR 1644 (45000): End must be after start
+mysql> INSERT INTO staff VALUES (NULL,'test4','test4',NULL,NULL,'0347','126A','test3@gmail.com');
+ERROR 1048 (23000): Column 'role' cannot be null
+mysql> INSERT INTO staff VALUES (NULL,'test4','test4','nurse',NULL,'0347','126A','test2@gmail.com');
+ERROR 1062 (23000): Duplicate entry 'test2@gmail.com' for key 'staff.email_UNIQUE'
+mysql> INSERT INTO stay VALUES (NULL,'1940-01-01','1920-01-01',1,1);
+ERROR 1644 (45000): Discharge must be after admit
+mysql>
+mysql> SELECT * FROM medication;
++--------------+----------+--------+--------------+
+| idMedication | name     | dosage | instructions |
++--------------+----------+--------+--------------+
+|            1 | testMed1 | 100mg  | ingest       |
+|            2 | testMed2 | 200mg  | ingest       |
++--------------+----------+--------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM prescription;
++-----------+--------------+------------+------------+
+| idPatient | idMedication | start      | end        |
++-----------+--------------+------------+------------+
+|         1 |            1 | 1920-01-01 | 1921-01-01 |
+|         2 |            1 | 1920-01-01 | NULL       |
++-----------+--------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM patient;
++-----------+-------+-------+------------+--------+---------+-------+
+| idPatient | fname | lname | dob        | gender | address | phone |
++-----------+-------+-------+------------+--------+---------+-------+
+|         1 | test1 | test1 | 1920-01-01 | male   | 123A    | 0345  |
+|         2 | test2 | test2 | 1920-01-01 | female | 124A    | 0346  |
+|         3 | test3 | test3 | 1920-01-01 | other  | 125A    | 0347  |
++-----------+-------+-------+------------+--------+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM appointment;
++---------------+---------------------+---------+-----------+
+| idAppointment | time                | idStaff | idPatient |
++---------------+---------------------+---------+-----------+
+|             1 | 1930-01-01 09:00:00 |       1 |         1 |
+|             2 | 1930-01-01 10:00:00 |       1 |         2 |
++---------------+---------------------+---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM staff;
++---------+-------+-------+--------+-----------+-------+---------+-----------------+
+| idStaff | fname | lname | role   | specialty | phone | address | email           |
++---------+-------+-------+--------+-----------+-------+---------+-----------------+
+|       1 | test4 | test4 | doctor | urologist | 0346  | 125A    | test@gmail.com  |
+|       2 | test5 | test5 | nurse  | NULL      | 0347  | 126A    | test2@gmail.com |
++---------+-------+-------+--------+-----------+-------+---------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM department;
++--------------+---------------+----------+---------------+
+| idDepartment | name          | location | idResponsible |
++--------------+---------------+----------+---------------+
+|            1 | Surgery       | 12F      |             1 |
+|            2 | Brain surgery | 13F      |             1 |
+|            3 | Nursing       | 10F      |             2 |
++--------------+---------------+----------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM stay;
++--------+------------+------------+-----------+---------+
+| idStay | admit      | discharge  | idPatient | idStaff |
++--------+------------+------------+-----------+---------+
+|      1 | 1920-01-01 | 1921-01-01 |         1 |       1 |
+|      2 | 1930-01-01 | NULL       |         1 |       1 |
++--------+------------+------------+-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM treatment;
++-------------+------------+--------+---------+-----------------+
+| idTreatment | performed  | idStay | idStaff | idTreatmentType |
++-------------+------------+--------+---------+-----------------+
+|           1 | 1930-01-01 |      1 |       1 |               1 |
+|           2 | 1930-01-01 |      1 |       2 |               1 |
++-------------+------------+--------+---------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM treatmentType;
++-----------------+-------------+-------+
+| idTreatmentType | name        | code  |
++-----------------+-------------+-------+
+|               1 | injection   | S20.7 |
+|               2 | vaccination | S40.2 |
++-----------------+-------------+-------+
+2 rows in set (0.00 sec)
